@@ -46,8 +46,8 @@ int main(void)
 	GPIO_PeriClockControl(GPIOA, ENABLE);	//enable peripheral clock
 	GPIO_Init(&GpioButton);					//call API and send address to run them
 
-	GPIO_IRQPriorityConfig(EXTI0, NVIC_IRQ_PRI_15);
-	GPIO_IRQInterruptConfig(EXTI0, ENABLE);
+	GPIO_IRQPriorityConfig(IRQ_NO_EXTI0, NVIC_IRQ_PRI_15);
+	GPIO_IRQInterruptConfig(IRQ_NO_EXTI0, ENABLE);
 
 	while(1);
 

@@ -19,7 +19,7 @@
  * @notes		- none
  *
  */
-//peripheral clock setup
+/* Peripheral clock setup */
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 {
 	if(EnorDi == ENABLE)
@@ -27,25 +27,24 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 		if(pGPIOx == GPIOA)
 		{
 			GPIOA_PCLK_EN();
-		}else if(pGPIOx == GPIOB)
+		}
+		else if(pGPIOx == GPIOB)
 		{
 			GPIOB_PCLK_EN();
-		}else if(pGPIOx == GPIOC)
+		}
+		else if(pGPIOx == GPIOC)
 		{
 			GPIOC_PCLK_EN();
-		}else if(pGPIOx == GPIOD)
+		}
+		else if(pGPIOx == GPIOD)
 		{
 			GPIOD_PCLK_EN();
-		}else if(pGPIOx == GPIOE)
+		}
+		else if(pGPIOx == GPIOE)
 		{
 			GPIOE_PCLK_EN();
-		}else if(pGPIOx == GPIOF)
-		{
-			GPIOF_PCLK_EN();
-		}else if(pGPIOx == GPIOG)
-		{
-			GPIOG_PCLK_EN();
-		}else if(pGPIOx == GPIOH)
+		}
+		else if(pGPIOx == GPIOH)
 		{
 			GPIOH_PCLK_EN();
 		}
@@ -55,25 +54,24 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 		if(pGPIOx == GPIOA)
 		{
 			GPIOA_PCLK_DI();
-		}else if(pGPIOx == GPIOB)
+		}
+		else if(pGPIOx == GPIOB)
 		{
 			GPIOB_PCLK_DI();
-		}else if(pGPIOx == GPIOC)
+		}
+		else if(pGPIOx == GPIOC)
 		{
 			GPIOC_PCLK_DI();
-		}else if(pGPIOx == GPIOD)
+		}
+		else if(pGPIOx == GPIOD)
 		{
 			GPIOD_PCLK_DI();
-		}else if(pGPIOx == GPIOE)
+		}
+		else if(pGPIOx == GPIOE)
 		{
 			GPIOE_PCLK_DI();
-		}else if(pGPIOx == GPIOF)
-		{
-			GPIOF_PCLK_DI();
-		}else if(pGPIOx == GPIOG)
-		{
-			GPIOG_PCLK_DI();
-		}else if(pGPIOx == GPIOH)
+		}
+		else if(pGPIOx == GPIOH)
 		{
 			GPIOH_PCLK_DI();
 		}
@@ -83,6 +81,7 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 /*********************************************************
  * @fn			- GPIO_Init
  * @brief		- This function configures the features of GPIO pin
+ * 				  Initialization of GPIOs and functionalities
  *
  * @param[in]	-base address of the GPIO peripheral
  * @param[in]	-
@@ -92,74 +91,74 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
  * @notes		- none
  *
  */
-//initialization of GPIOs and functionalities
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
 	uint32_t temp = 0;	//temp register
 
-	//enable peripheral clock before using this peripheral
+	/* Enable peripheral clock before using this peripheral */
 	GPIO_PeriClockControl(pGPIOHandle ->pGPIOx, ENABLE);
 
-	//1)configure pin mode
+	/* 1)configure pin mode */
 	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
 	{
 		//multiplied by 2 for appropriate left shift
 		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber ) );
 		pGPIOHandle->pGPIOx->MODER &= ~( 0x3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 		pGPIOHandle->pGPIOx->MODER |= temp; //setting
-	}else
+	}
+	else
 	{
 		/* interrupt mode */
 		if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FT)
 		{
-			//1) configure  the FTSR
-			EXTI->FTSR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
-			//clear the corresponding RTSR bit
-			EXTI->RTSR1 &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* 1) configure  the FTSR */
+			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* clear the corresponding RTSR bit */
+			EXTI->RTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 		}
 		else if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT)
 		{
-			//2) configure the RTSR
-			EXTI->RTSR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
-			//clear the corresponding RTSR bit
-			EXTI->FTSR1 &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* 2) configure the RTSR */
+			EXTI->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* clear the corresponding RTSR bit */
+			EXTI->FTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 		}
 		else if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RFT)
 		{
-			//1) configure the FTSR
-			EXTI->FTSR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
-			//2) configure the RTSR
-			EXTI->RTSR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* 1) configure the FTSR */
+			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* 2) configure the RTSR */
+			EXTI->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 		}
 
-		//2) configure the GPIO port selection in SYSCFG_EXTICR
+		/* 2) configure the GPIO port selection in SYSCFG_EXTICR */
 		uint8_t temp1 = pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber / 4;
 		uint8_t temp2 = pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber % 4;
 		uint8_t portcode = GPIO_BASEADDR_TO_CODE(pGPIOHandle ->pGPIOx);
 
-		SYSCFG_PCLK_EN();	//enable clock to activate it
+		SYSCFG_PCLK_EN();	/* enable clock to activate it */
 		SYSCFG ->EXTICR[temp1] = portcode << (temp2 * 4);
 
-		//3) enable the EXTI interrupt delivery using IMR
-		EXTI->IMR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		/* 3) enable the EXTI interrupt delivery using IMR */
+		EXTI->IMR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 	}
 
-	//2)configure pin speed
+	/* 2)configure pin speed */
 	temp = (pGPIOHandle -> GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOHandle -> GPIO_PinConfig.GPIO_PinNumber));
 	pGPIOHandle->pGPIOx->OSPEEDR &= ~( 0x3 << ( 2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 	pGPIOHandle ->pGPIOx ->OSPEEDR |= temp;
 
-	//3)configure pupd settings
+	/* 3)configure pupd settings */
 	temp = (pGPIOHandle -> GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOHandle -> GPIO_PinConfig.GPIO_PinNumber));
 	pGPIOHandle->pGPIOx->PUPDR &= ~( 0x3 << ( 2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 	pGPIOHandle ->pGPIOx ->PUPDR |= temp;
 
-	//4)configure optype (only 1 bit, no need to x2)
+	/* 4)configure optype (only 1 bit, no need to x2) */
 	temp = (pGPIOHandle -> GPIO_PinConfig.GPIO_PinOPType << pGPIOHandle -> GPIO_PinConfig.GPIO_PinNumber);
 	pGPIOHandle->pGPIOx->OTYPER &= ~( 0x1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); //clearing
 	pGPIOHandle ->pGPIOx ->OTYPER |= temp;
 
-	//5)configure alt  functionality
+	/* 5)configure alt  functionality */
 	if(pGPIOHandle -> GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
 	{
 		uint32_t temp1, temp2;
@@ -173,6 +172,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 /*********************************************************
  * @fn			- GPIO_DeInit
  * @brief		- This function resets the features of GPIO pin configuring AHBRSTR register
+ * 				  de-initialization of GPIOs
  *
  * @param[in]	- base address of the GPIO peripheral
  * @param[in]	-
@@ -182,31 +182,29 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
  * @notes		- none
  *
  */
-//de-initialization of GPIOs
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
 	if(pGPIOx == GPIOA)
 	{
 		GPIOA_REG_RESET();
-	}else if(pGPIOx == GPIOB)
+	}
+	else if(pGPIOx == GPIOB)
 	{
 		GPIOB_REG_RESET();
-	}else if(pGPIOx == GPIOC)
+	}
+	else if(pGPIOx == GPIOC)
 	{
 		GPIOC_REG_RESET();
-	}else if(pGPIOx == GPIOD)
+	}
+	else if(pGPIOx == GPIOD)
 	{
 		GPIOD_REG_RESET();
-	}else if(pGPIOx == GPIOE)
+	}
+	else if(pGPIOx == GPIOE)
 	{
 		GPIOE_REG_RESET();
-	}else if(pGPIOx == GPIOF)
-	{
-		GPIOF_REG_RESET();
-	}else if(pGPIOx == GPIOG)
-	{
-		GPIOG_REG_RESET();
-	}else if(pGPIOx == GPIOH)
+	}
+	else if(pGPIOx == GPIOH)
 	{
 		GPIOH_REG_RESET();
 	}
@@ -224,7 +222,6 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  * @notes		- Input data register is read on the defined pin number and is moved to leftmost place in register(IDR0)
  *
  */
-//data read pin
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)	//it has to return value
 {
 	uint8_t	value;
@@ -244,7 +241,6 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)	//it has
  * @notes		- each port is of 16 bit wide and so uint16_t is to be used
  *
  */
-//data read port
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
 	uint16_t	value;
@@ -265,14 +261,14 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
  * @notes		- write value to output data register(ODR)
  *
  */
-//data write to output pin
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value)	//nothing to return i.e., void
 {
 	if(Value == GPIO_PIN_SET)
 	{
 		//write 1 in the bit field corresponding to pin  the number
 		pGPIOx->ODR |= (1 << PinNumber);
-	}else
+	}
+	else
 	{
 		//write 0
 		pGPIOx->ODR &= ~(1 << PinNumber);
@@ -291,7 +287,6 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Val
  * @notes		- write value directly to the output data register
  *
  */
-//data write to output port
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
 {
 	pGPIOx ->ODR = Value;
@@ -310,7 +305,6 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
  * 				  Toggling means if bit is 1, make it 0 and if 0, make it 1
  *
  */
-//toggle output pin
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
 	pGPIOx ->ODR ^= (1 << PinNumber);
@@ -403,9 +397,9 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 void GPIO_IRQHandling(uint8_t PinNumber)
 {
  //clear the EXTIPR register
-	if(EXTI ->PR1 |= (1 << PinNumber))
+	if(EXTI ->PR |= (1 << PinNumber))
 	{
 		//clear
-		EXTI ->PR1 &= ~(1 << PinNumber);
+		EXTI ->PR &= ~(1 << PinNumber);
 	}
 }

@@ -18,7 +18,7 @@ typedef struct
 	uint8_t GPIO_PinPuPdControl;	/*< possible values from @GPIO_pin_pupds >*/
 	uint8_t GPIO_PinOPType;			/*< possible values from @GPIO_pin_types >*/
 	uint8_t GPIO_PinAltFunMode;
-}GPIO_PinConfig_t;
+} GPIO_PinConfig_t;
 
 /* handle structure for GPIO pin */
 typedef struct
@@ -27,7 +27,7 @@ typedef struct
 	GPIO_RegDef_t *pGPIOx;	//holds base address of the GPIO to which the pin belongs
 	GPIO_PinConfig_t GPIO_PinConfig;	//holds GPIO pin configuration settings
 
-}GPIO_Handle_t;
+} GPIO_Handle_t;
 
 /*
  * Expanding GPIO_PinConfig_t configuration structure
