@@ -370,7 +370,7 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
  * @fn			- GPIO_IRQPriorityConfig
  * @brief		- Interrupt configuration
  *
- * @param[in]	-
+ * @param[in]	- IRQNumber
  * @param[in]	-
  *
  * @return		- void

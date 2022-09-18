@@ -378,8 +378,6 @@ typedef struct
 #define FLAG_RESET			RESET
 #define FLAG_SET			SET
 
-#define STM32F407DISC		true
-
 //including GPIO driver header to have dependency with stm32f4xx.h and pull both to main.c in one header definition.
 #include "stm32f4xx_gpio_driver.h"
 
