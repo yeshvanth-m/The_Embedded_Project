@@ -87,11 +87,11 @@
 #define I2C3_BASEADDR			(APB1PERIPH_BASEADDR + 0x5C00)
 
 /*base addresses of peripherals on APB2*/
-#define EXTI_BASEADDR			(APB2PERIPH_BASEADDR + 0x0400)
 #define SPI1_BASEADDR			(APB2PERIPH_BASEADDR + 0x3000)
 #define USART1_BASEADDR			(APB2PERIPH_BASEADDR + 0x1000)
 #define SPI4_BASEADDR			(APB2PERIPH_BASEADDR + 0x3400)
 #define SYSCFG_BASEADDR			(APB2PERIPH_BASEADDR + 0x3800)
+#define EXTI_BASEADDR			(APB2PERIPH_BASEADDR + 0x3C00)
 
 
 
@@ -334,7 +334,7 @@ typedef struct
 									(x == GPIOH)?7:0)
 
 /*
- * Interrupt request position numbers for STM32F303xx
+ * Interrupt request position numbers for STM32F401xx
  * Taken from Vector Table in reference manual
  */
 #define EXTI0				6

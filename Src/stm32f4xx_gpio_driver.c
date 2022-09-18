@@ -116,15 +116,15 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 			EXTI->FTSR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 			//clear the corresponding RTSR bit
 			EXTI->RTSR1 &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
-
-		}else if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT)
+		}
+		else if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT)
 		{
 			//2) configure the RTSR
 			EXTI->RTSR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 			//clear the corresponding RTSR bit
 			EXTI->FTSR1 &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
-
-		}else if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RFT)
+		}
+		else if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RFT)
 		{
 			//1) configure the FTSR
 			EXTI->FTSR1 |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
@@ -335,30 +335,31 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
 		{
 			//program ISER0
 			*NVIC_ISER0 |= (1 << IRQNumber);
-
-		}else if(IRQNumber > 31 && IRQNumber < 64)
+		}
+		else if(IRQNumber > 31 && IRQNumber < 64)
 		{
 			//program ISER1
 			*NVIC_ISER1 |= (1 << IRQNumber % 32);	//moving to the next register ISER1(32 bit register)
-
-		}else if(IRQNumber >= 64 && IRQNumber < 96)
+		}
+		else if(IRQNumber >= 64 && IRQNumber < 96)
 		{
 			//program ISER2
 			*NVIC_ISER2 |= (1 << IRQNumber % 64);	////moving to the next register ISER2
 		}
-	}else
+	}
+	else
 	{
 		if(IRQNumber <= 31)
 		{
 			//program ICER0
 			*NVIC_ICER0 |= (1 << IRQNumber);
-
-		}else if(IRQNumber > 31 && IRQNumber < 64)
+		}
+		else if(IRQNumber > 31 && IRQNumber < 64)
 		{
 			//program ICER1
 			*NVIC_ICER1 |= (1 << IRQNumber % 32);
-
-		}else if(IRQNumber >= 64 && IRQNumber < 96)
+		}
+		else if(IRQNumber >= 64 && IRQNumber < 96)
 		{
 			//program ICER2
 			*NVIC_ICER2 |= (1 << IRQNumber % 64);
