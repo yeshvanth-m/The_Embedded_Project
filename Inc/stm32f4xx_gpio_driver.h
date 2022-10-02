@@ -1,8 +1,6 @@
 /*
  * stm32f4xx_gpio_driver.h
  *
- *
- *
  */
 
 #ifndef INC_STM32F4XX_GPIO_DRIVER_H_
@@ -12,11 +10,11 @@
 /* configuration structure for GPIO */
 typedef struct
 {									/* Pin number is 15 at max and so uint8_t i.e., 1 byte is suffice */
-	uint8_t GPIO_PinNumber;			/*< possible values from @GPIO_pin_numbers >*/
-	uint8_t	GPIO_PinMode;			/*< possible values from @GPIO_pin_modes >*/
-	uint8_t GPIO_PinSpeed;			/*< possible values from @GPIO_pin_speeds >*/
-	uint8_t GPIO_PinPuPdControl;	/*< possible values from @GPIO_pin_pupds >*/
-	uint8_t GPIO_PinOPType;			/*< possible values from @GPIO_pin_types >*/
+	uint8_t GPIO_PinNumber;			/*< possible values from @GPIO_PIN_NO_numbers >*/
+	uint8_t	GPIO_PinMode;			/*< possible values from @GPIO_PIN_NO_modes >*/
+	uint8_t GPIO_PinSpeed;			/*< possible values from @GPIO_PIN_NO_speeds >*/
+	uint8_t GPIO_PinPuPdControl;	/*< possible values from @GPIO_PIN_NO_pupds >*/
+	uint8_t GPIO_PinOPType;			/*< possible values from @GPIO_PIN_NO_types >*/
 	uint8_t GPIO_PinAltFunMode;
 } GPIO_PinConfig_t;
 
@@ -33,25 +31,25 @@ typedef struct
  * Macros for GPIO_Init(GPIO_Handle_t *pGPIOHandle) in gpio_driver.c file
  * Defining all the individual registers and their definitions for GPIOx
  */
-#define GPIO_PIN_0			0
-#define GPIO_PIN_1			1
-#define GPIO_PIN_2			2
-#define GPIO_PIN_3			3
-#define GPIO_PIN_4			4
-#define GPIO_PIN_5			5
-#define GPIO_PIN_6			6
-#define GPIO_PIN_7			7
-#define GPIO_PIN_8			8
-#define GPIO_PIN_9			9
-#define GPIO_PIN_10			10
-#define GPIO_PIN_11			11
-#define GPIO_PIN_12			12
-#define GPIO_PIN_13			13
-#define GPIO_PIN_14			14
-#define GPIO_PIN_15			15
+#define GPIO_PIN_NO_0		0
+#define GPIO_PIN_NO_1		1
+#define GPIO_PIN_NO_2		2
+#define GPIO_PIN_NO_3		3
+#define GPIO_PIN_NO_4		4
+#define GPIO_PIN_NO_5		5
+#define GPIO_PIN_NO_6		6
+#define GPIO_PIN_NO_7		7
+#define GPIO_PIN_NO_8		8
+#define GPIO_PIN_NO_9		9
+#define GPIO_PIN_NO_10		10
+#define GPIO_PIN_NO_11		11
+#define GPIO_PIN_NO_12		12
+#define GPIO_PIN_NO_13		13
+#define GPIO_PIN_NO_14		14
+#define GPIO_PIN_NO_15		15
 
 /*
- * GPIO_pin_modes (GPIOx_MODER)
+ * GPIO_PIN_NO_modes (GPIOx_MODER)
  * |---------------------------|
  * | 00 | 01  |	 10	  |  11	   |
  * | --------------------------|
@@ -67,17 +65,17 @@ typedef struct
 #define GPIO_MODE_IT_RT		5	/* rising edge trigger interrupt */
 #define GPIO_MODE_IT_RFT	6
 
-/* GPIO_pin_output_types (GPIOx_OTYPER) */
-#define GPIO_OTYPE_PP		0	/* open drain */
-#define GPIO_OTYPE_OD		1	/* push-pull */
+/* GPIO_PIN_NO_output_types (GPIOx_OTYPER) */
+#define GPIO_OP_TYPE_PP		0	/* open drain */
+#define GPIO_OP_TYPE_OD		1	/* push-pull */
 
-/* GPIO_pin_output_speeds (GPIOx_OSPEEDR) */
-#define GPIO_SPEED_LOW		0
+/* GPIO_PIN_NO_output_speeds (GPIOx_OSPEEDR) */
+#define GPIO_SPEED_SLOW		0
 #define GPIO_SPEED_MID		1
-#define GPIO_SPEED_HIGH		2
+#define GPIO_SPEED_FAST		2
 
-/* GPIO_pin_pupds (GPIOx_PUPDR) */
-#define GPIO_PUPD_NO		0	/* no pull-up, pull-down */
+/* GPIO_PIN_pupds (GPIOx_PUPDR) */
+#define GPIO_NO_PUPD		0	/* no pull-up, pull-down */
 #define GPIO_PUPD_PU		1	/* pull-up */
 #define GPIO_PUPD_PD		2	/* pull-down */
 

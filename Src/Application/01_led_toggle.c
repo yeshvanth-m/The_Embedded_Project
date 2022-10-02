@@ -21,7 +21,7 @@ int main(void)
 
 	//ctrl+space to get recommendations of definitions and define them all
 	GpioLed.pGPIOx = GPIOC;										/* LD4 green LED at PC13 */
-	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_13;
+	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13;
 	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_HIGH;
 	GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_OTYPE_PP;		// using push-pull
@@ -30,11 +30,11 @@ int main(void)
 	GPIO_PeriClockControl(GPIOC, ENABLE);	//enable peripheral clock
 	GPIO_Init(&GpioLed);					//call API and send address to run them
 
-	GPIO_WriteToOutputPin(GPIOC, GPIO_PIN_13, ENABLE);
+	GPIO_WriteToOutputPin(GPIOC, GPIO_PIN_NO_13, ENABLE);
 
 	while(1)
 	{
-		GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_13);
+		GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
 		delay();
 
 	}

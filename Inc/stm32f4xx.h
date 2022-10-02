@@ -188,7 +188,7 @@ typedef struct
 typedef struct
 {
 	__vo uint32_t CR1;
-	__vo uint32_t RESERVED;
+	__vo uint32_t CR2;
 	__vo uint32_t SR;
 	__vo uint32_t DR;
 	__vo uint32_t CRCPR;
@@ -366,5 +366,6 @@ typedef struct
 
 /* Including GPIO driver header to have dependency with stm32f4xx.h and pull both to main.c in one header definition. */
 #include "stm32f4xx_gpio_driver.h"
+#include "stm32f4xx_spi_driver.h"
 
 #endif /* INC_STM32F4XX_H_ */
